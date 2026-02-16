@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "mockoon-cli start --data mockoon_env.json --port $PORT"
+    "start": "npx mockoon-cli start --data mockoon_env.json --port $PORT"
   },
   "dependencies": {
-    "@mockoon/cli": "^8.0.0"
+    "@mockoon/cli": "^9.5.0"
   }
 }
