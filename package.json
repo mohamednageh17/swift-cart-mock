@@ -14,7 +14,8 @@
   },
   "description": "",
 "scripts": {
-  "start": "mockoon-cli start --data mockoon_env.json --port 10000"
+  "start": "mockoon-cli start --data mockoon_env.json --port $PORT
+"
 }
 
 }
