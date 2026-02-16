@@ -1,0 +1,456 @@
+{
+  "uuid": "52260f3d-0edd-4a96-b22b-ffdc3bbe1e09",
+  "lastMigration": 33,
+  "name": "Swift cart",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [
+    {
+      "uuid": "6c50e192-1426-4a8b-8d3f-fe809ad7dbc7",
+      "name": "home",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "845b1d22-ed49-4a2a-97fc-d866815e4600"
+        }
+      ]
+    },
+    {
+      "uuid": "ac71149c-89df-45dd-ae95-6ffb01d1497d",
+      "name": "products",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "c11a0937-8297-46c8-bacc-069a05a49e0d"
+        }
+      ]
+    },
+    {
+      "uuid": "87e60cc1-56c1-4ed5-b946-56a08ecb4eca",
+      "name": "categories",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "4c7ac9c4-d2c0-4ae5-b13a-51bdddd63e3b"
+        }
+      ]
+    },
+    {
+      "uuid": "8fe3844c-ccc8-4606-b16d-8f87102f118d",
+      "name": "auth",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "f7ee727c-bb58-4a81-b822-a21a91bdc5ca"
+        },
+        {
+          "type": "route",
+          "uuid": "fd728aef-8a93-4507-aa8b-6bdb4ace7b2d"
+        },
+        {
+          "type": "route",
+          "uuid": "6699ae13-1dd2-43a3-955c-e9d270b9af83"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "f7ee727c-bb58-4a81-b822-a21a91bdc5ca",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "fde54d87-78a2-4480-aa56-ee64d7e31a53",
+          "body": "{\r\n  \"token\": \"fake-jwt-token\",\r\n  \"user\": {\r\n    \"id\": \"1\",\r\n    \"name\": \"Mohamed Nageh\",\r\n    \"email\": \"nageh@yahoo.com\"\r\n  }\r\n}\r\n",
+          "latency": 800,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "nageh@yahoo.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "Aa123456",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3ec65243-2323-45c4-9051-08ecc99a9469",
+          "body": "{\r\n  \"message\": \"Invalid email or password\"\r\n}\r\n",
+          "latency": 800,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "nageh@yahoo.com",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "Aa123456",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "fd728aef-8a93-4507-aa8b-6bdb4ace7b2d",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "eb508e98-6cd8-438b-bbe1-ef8196d84f5f",
+          "body": "{\r\n  \"token\": \"fake-token-456\",\r\n  \"user\": {\r\n    \"id\": \"2\",\r\n    \"name\": \"{{body 'name'}}\",\r\n    \"email\": \"{{body 'email'}}\"\r\n  }\r\n}\r\n",
+          "latency": 800,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "03322b2e-0bf8-4b46-b932-9d7c2a961251",
+          "body": "{\r\n  \"message\": \"Weak password\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "Aa123456",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "6699ae13-1dd2-43a3-955c-e9d270b9af83",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "auth/forgot-password",
+      "responses": [
+        {
+          "uuid": "a9ffa1ae-309d-4176-b10a-a84bcf6c75c8",
+          "body": "{\r\n  \"message\": \"Reset password link sent to your email\"\r\n}\r\n",
+          "latency": 800,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "845b1d22-ed49-4a2a-97fc-d866815e4600",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "home",
+      "responses": [
+        {
+          "uuid": "7e9e8689-80c4-48a1-97d3-99e93cdbaddf",
+          "body": "{\r\n  \"banners\": [\r\n    { \"id\": 1, \"image\": \"https://picsum.photos/800/300?1\" },\r\n    { \"id\": 2, \"image\": \"https://picsum.photos/800/300?2\" },\r\n    { \"id\": 3, \"image\": \"https://picsum.photos/800/300?3\" }\r\n  ],\r\n\r\n  \"saleProducts\": [\r\n    {\r\n      \"id\": 1,\r\n      \"title\": \"Short Dress\",\r\n      \"subtitle\": \"H&M\",\r\n      \"price\": 19.99,\r\n      \"discount_percentage\": 25,\r\n      \"rate\": 4.5,\r\n      \"image\": \"https://picsum.photos/400/400?11\"\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"title\": \"Pullover\",\r\n      \"subtitle\": \"Mango\",\r\n      \"price\": 51.0,\r\n      \"discount_percentage\": 30,\r\n      \"rate\": 4.7,\r\n      \"image\": \"https://picsum.photos/400/400?12\"\r\n    },\r\n    {\r\n      \"id\": 3,\r\n      \"title\": \"Sport Shoes\",\r\n      \"subtitle\": \"Nike\",\r\n      \"price\": 89.0,\r\n      \"discount_percentage\": 20,\r\n      \"rate\": 4.4,\r\n      \"image\": \"https://picsum.photos/400/400?13\"\r\n    },\r\n    {\r\n      \"id\": 4,\r\n      \"title\": \"Leather Bag\",\r\n      \"subtitle\": \"Zara\",\r\n      \"price\": 120.0,\r\n      \"discount_percentage\": 15,\r\n      \"rate\": 4.3,\r\n      \"image\": \"https://picsum.photos/400/400?14\"\r\n    },\r\n    {\r\n      \"id\": 5,\r\n      \"title\": \"Denim Jacket\",\r\n      \"subtitle\": \"Levis\",\r\n      \"price\": 74.0,\r\n      \"discount_percentage\": 40,\r\n      \"rate\": 4.8,\r\n      \"image\": \"https://picsum.photos/400/400?15\"\r\n    },\r\n    {\r\n      \"id\": 6,\r\n      \"title\": \"Summer Hat\",\r\n      \"subtitle\": \"Bershka\",\r\n      \"price\": 18.0,\r\n      \"discount_percentage\": 10,\r\n      \"rate\": 4.1,\r\n      \"image\": \"https://picsum.photos/400/400?16\"\r\n    },\r\n    {\r\n      \"id\": 7,\r\n      \"title\": \"Sneakers\",\r\n      \"subtitle\": \"Adidas\",\r\n      \"price\": 95.0,\r\n      \"discount_percentage\": 35,\r\n      \"rate\": 4.6,\r\n      \"image\": \"https://picsum.photos/400/400?17\"\r\n    },\r\n    {\r\n      \"id\": 8,\r\n      \"title\": \"Classic Shirt\",\r\n      \"subtitle\": \"H&M\",\r\n      \"price\": 33.0,\r\n      \"discount_percentage\": 18,\r\n      \"rate\": 4.2,\r\n      \"image\": \"https://picsum.photos/400/400?18\"\r\n    },\r\n    {\r\n      \"id\": 9,\r\n      \"title\": \"Mini Skirt\",\r\n      \"subtitle\": \"Zara\",\r\n      \"price\": 28.0,\r\n      \"discount_percentage\": 22,\r\n      \"rate\": 4.4,\r\n      \"image\": \"https://picsum.photos/400/400?19\"\r\n    },\r\n    {\r\n      \"id\": 10,\r\n      \"title\": \"Winter Coat\",\r\n      \"subtitle\": \"Uniqlo\",\r\n      \"price\": 140.0,\r\n      \"discount_percentage\": 45,\r\n      \"rate\": 4.9,\r\n      \"image\": \"https://picsum.photos/400/400?20\"\r\n    },\r\n    {\r\n      \"id\": 11,\r\n      \"title\": \"Casual Pants\",\r\n      \"subtitle\": \"Pull&Bear\",\r\n      \"price\": 45.0,\r\n      \"discount_percentage\": 20,\r\n      \"rate\": 4.3,\r\n      \"image\": \"https://picsum.photos/400/400?21\"\r\n    }\r\n  ],\r\n\r\n  \"newProducts\": [\r\n    { \"id\": 101, \"title\": \"Basic T-Shirt\", \"subtitle\": \"H&M\", \"price\": 15.0, \"rate\": 4.2, \"image\": \"https://picsum.photos/400/400?31\" },\r\n    { \"id\": 102, \"title\": \"Running Shoes\", \"subtitle\": \"Nike\", \"price\": 110.0, \"rate\": 4.6, \"image\": \"https://picsum.photos/400/400?32\" },\r\n    { \"id\": 103, \"title\": \"Blue Jeans\", \"subtitle\": \"Levis\", \"price\": 59.0, \"rate\": 4.7, \"image\": \"https://picsum.photos/400/400?33\" },\r\n    { \"id\": 104, \"title\": \"Oversized Hoodie\", \"subtitle\": \"Adidas\", \"price\": 65.0, \"rate\": 4.5, \"image\": \"https://picsum.photos/400/400?34\" },\r\n    { \"id\": 105, \"title\": \"Elegant Dress\", \"subtitle\": \"Zara\", \"price\": 89.0, \"rate\": 4.8, \"image\": \"https://picsum.photos/400/400?35\" },\r\n    { \"id\": 106, \"title\": \"Mini Backpack\", \"subtitle\": \"Puma\", \"price\": 42.0, \"rate\": 4.1, \"image\": \"https://picsum.photos/400/400?36\" },\r\n    { \"id\": 107, \"title\": \"Sports Cap\", \"subtitle\": \"Nike\", \"price\": 22.0, \"rate\": 4.0, \"image\": \"https://picsum.photos/400/400?37\" },\r\n    { \"id\": 108, \"title\": \"Leather Shoes\", \"subtitle\": \"Clarks\", \"price\": 130.0, \"rate\": 4.7, \"image\": \"https://picsum.photos/400/400?38\" },\r\n    { \"id\": 109, \"title\": \"Cotton Shirt\", \"subtitle\": \"Mango\", \"price\": 37.0, \"rate\": 4.3, \"image\": \"https://picsum.photos/400/400?39\" },\r\n    { \"id\": 110, \"title\": \"Slim Fit Pants\", \"subtitle\": \"H&M\", \"price\": 48.0, \"rate\": 4.2, \"image\": \"https://picsum.photos/400/400?40\" },\r\n    { \"id\": 111, \"title\": \"Classic Watch\", \"subtitle\": \"Fossil\", \"price\": 180.0, \"rate\": 4.9, \"image\": \"https://picsum.photos/400/400?41\" }\r\n  ]\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "c11a0937-8297-46c8-bacc-069a05a49e0d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "products",
+      "responses": [
+        {
+          "uuid": "ed420425-31c2-4add-a581-8c481ca03c6a",
+          "body": "{\r\n  \"page\": \"{{queryParam 'page'}}\",\r\n  \"total\": 100,\r\n  \"hasMore\": \"{{#unless (eq (queryParam 'page') '10')}}true{{else}}false{{/unless}}\",\r\n  \"data\": [\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=10000}}\",\r\n      \"title\": \"{{faker 'commerce.productName'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"category\": \"{{faker 'commerce.department'}}\",\r\n      \"price\": \"{{faker 'commerce.price'}}\",\r\n      \"image\": \"https://picsum.photos/400/400?random={{faker 'number.int'}}\",\r\n      \"rating\": {\r\n        \"rate\": \"{{faker 'number.float' min=3 max=5 precision=0.1}}\",\r\n        \"count\": \"{{faker 'number.int' min=10 max=500}}\"\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "51e348bd-b9f2-4431-b9ae-b9c591ec4299",
+          "body": "{\r\n  \"message\": \"Page out of range\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "^(1|2|3|4|5|6|7|8|9|10)$",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4c7ac9c4-d2c0-4ae5-b13a-51bdddd63e3b",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "categories",
+      "responses": [
+        {
+          "uuid": "c0ef20b2-221f-404c-8752-ce0ed8fb62ed",
+          "body": "{\r\n  \"page\": \"{{queryParam 'page'}}\",\r\n  \"limit\": \"{{queryParam 'limit'}}\",\r\n  \"total\": 40,\r\n  \"hasMore\": \"{{#unless (eq (queryParam 'page') '5')}}true{{else}}false{{/unless}}\",\r\n  \"data\": [\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    },\r\n    {\r\n      \"id\": \"{{faker 'number.int' min=1 max=1000}}\",\r\n      \"title\": \"{{faker 'commerce.department'}}\",\r\n      \"description\": \"{{faker 'commerce.productDescription'}}\",\r\n      \"image\": \"https://picsum.photos/300/300?random={{faker 'number.int'}}\"\r\n    }\r\n  ]\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "039ea2a4-a68d-429a-85fa-92c006e823b3",
+          "body": "{\r\n  \"message\": \"Page out of range\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "^(1|2|3|4|5|6|7|8|9|10)$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "6c50e192-1426-4a8b-8d3f-fe809ad7dbc7"
+    },
+    {
+      "type": "folder",
+      "uuid": "ac71149c-89df-45dd-ae95-6ffb01d1497d"
+    },
+    {
+      "type": "folder",
+      "uuid": "87e60cc1-56c1-4ed5-b946-56a08ecb4eca"
+    },
+    {
+      "type": "folder",
+      "uuid": "8fe3844c-ccc8-4606-b16d-8f87102f118d"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": false,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
